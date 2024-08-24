@@ -8,13 +8,27 @@ const Userinput = ( { loading , onSubmit}) => {
     setUserInput(e.target.value);
   }
   const handleClick = () => {
-    onSubmit(userInput);
+    if (userInput === "") {
+      alert("채팅을 입력해주세요");
+      setUserInput("");
+    } else {
+      onSubmit(userInput);
+      setUserInput("");
+    }
   }
 
-  return <div>
-    <TextArea value={userInput} onChange={handleUserInput} placeholder='채팅을 입력해주세요'/>
-    <Button loading = {loading} onClick={handleClick}>전송</Button>
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      handleClick();
+    }
+  }
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <TextArea value={userInput} onChange={handleUserInput} placeholder='채팅을 입력해주세요' onKeyDown={handleEnter} />
+      <Button style={{ height: '100%' }} loading={loading} onClick={handleClick} >전송</Button>
     </div>
+  );
 }
 
 export default Userinput;
