@@ -10,10 +10,10 @@ const Userinput = ( { loading , onSubmit}) => {
   const handleClick = () => {
     if (userInput === "") {
       alert("채팅을 입력해주세요");
-      setUserInput("");
     } else {
-      onSubmit(userInput);
       setUserInput("");
+      onSubmit(userInput);
+
     }
   }
 

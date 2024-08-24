@@ -8,7 +8,7 @@ export const CallGPT = async ({ prompt, pastchatlog }) => {
   const chatlog = "이전대화: \n" + pastchatlog;
 
   const init_prompt1 = `너는 지금부터 ${persona}이야. 내가 묻는 질문들에 ${persona}이라고 생각하고 대답해줘. 말투는 ${persona}이 살았던 시대의 ${persona}이 할법한 말투로 해줘. 그리고 반드시 한국말로만 대답해줘.`;
-  const init_prompt2 = `${persona}의 목표는 나에게 ${learning_obejctive}에 대해 대화를 통해 알려주는 거야. 모든 대화에서 이 목표를 반드시 기억해야해. 목표를 반드시 기억하되 말로 드러내지 말고 대화를 이어가야해.`;
+  const init_prompt2 = `${persona}의 목표는 나에게 ${learning_obejctive}에 대해 대화를 통해 알려주는 거야. 모든 대화에서 이 목표를 반드시 기억해야해. 목표를 반드시 기억하되 말로 드러내지 말고 대화를 이어가면서 알려줘.`;
 
   const messages = [
     { role: "system", content: init_prompt1 },
@@ -35,11 +35,10 @@ export const CallGPT = async ({ prompt, pastchatlog }) => {
     body: JSON.stringify({
       model: "gpt-4o",
       messages: messages,
-      temperature: 0.7,
+      temperature: 0.9,
     }),
   });
   const responseData = await response.json();
-  console.log("reporting response data", responseData);
 
   const message = responseData.choices[0].message.content;
 
