@@ -14,8 +14,9 @@ function App() {
   const [user_knowledge, setUserKnowledge] = useState("");
   const [user_name_flag, setUserNameFlag] = useState(false);
 
-  const handleChat = (user1, user2) => {
+  const handleChat = (user1, user2, num) => {
     const chat = [
+      {chat_number : num},
       { user: user_name, message: user1 },
       { user: "세종대왕", message: user2 },
     ];
@@ -24,15 +25,19 @@ function App() {
 
   const [loading, setLoading] = useState(false);
   
+  var chat_num = 1;
+
   const handleClickAPICall = async (userInput) => {
     try {
       setLoading(true);
       const message = await CallGPT({ prompt: userInput, pastchatlog: chatlog });
-      handleChat(userInput, message);
+      handleChat(userInput, message, chat_num);
       addDoc(collection(db, user_name+"vanila"), {
+        chat_number : (chatlog.length-1)/3 + 1,
         input: userInput,
         output: message,
       });
+      chat_num +=1;
     } catch (error) {
       console.error(error);
     } finally { 
