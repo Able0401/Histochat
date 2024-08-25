@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {CallGPT} from "./api/gpt"
 import Userinput from './components/Userinput';
 import styled from 'styled-components';
+import {db} from './api/firebase'
+import { collection, addDoc, updateDoc} from "firebase/firestore";
 
 function App() {
   const [chatlog, setChatlog] = useState([]);
@@ -51,6 +53,12 @@ function App() {
     } else {
       setChatlog(chatlog.concat(user_name + "\n"));
       setUserNameFlag(true);
+      addDoc(collection(db, "chats"), {
+        name: user_name,
+        interest: user_interest,
+        knowledge: user_knowledge,
+        chatlog: chatlog
+      });
     }
   };
 
