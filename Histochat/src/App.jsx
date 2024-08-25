@@ -27,9 +27,9 @@ function App() {
   const handleClickAPICall = async (userInput) => {
     try {
       setLoading(true);
-      const message = await CallGPT({ prompt: userInput, pastchatlog: chatlog });
+      const message = await CallGPT({ prompt: userInput, pastchatlog: chatlog , user_name: user_name, user_interest: user_interest, user_knowledge: user_knowledge});
       handleChat(userInput, message);
-      addDoc(collection(db, user_name+"vanila"), {
+      addDoc(collection(db, user_name+"Advanced"), {
         input: userInput,
         output: message,
       });
@@ -56,7 +56,7 @@ function App() {
     } else {
       setChatlog(chatlog.concat(user_name + "\n"));
       setUserNameFlag(true);
-      addDoc(collection(db, user_name+"vanila"), {
+      addDoc(collection(db, user_name+"Advanced"), {
         name: user_name,
         interest: user_interest,
         knowledge: user_knowledge
@@ -89,8 +89,38 @@ function App() {
         </AppConatiner>
       ) : (
         <div>
-          <h3>이름을 입력해주세요</h3>
+          <h3>이름 관심있는 드라마 종류, 역사 지식을 얼마나 아는지를 입력해주세요</h3>
+          <div>이름</div>
           <input type="text" value={user_name} onChange={handleUserNameInput}/>
+          <br/>
+          <br/>
+          <div>
+            <label htmlFor="interest">관심 있는 드라마 종류:</label>
+            <select id="interest" value={user_interest} onChange={(e) => setUserInterest(e.target.value)}>
+              <option value="">선택하세요</option>
+              <option value="SF">SF</option>
+              <option value="로맨스">로맨스</option>
+              <option value="무협">무협</option>
+              <option value="뮤지컬">뮤지컬</option>
+              <option value="범죄">범죄</option>
+              <option value="사극">사극</option>
+              <option value="무협">무협</option>
+              <option value="액션">액션</option>
+              <option value="의학">의학</option>
+              <option value="공포">공포</option>
+            </select>
+          </div>
+          <br/>
+          <div>
+            <label htmlFor="knowledge">역사 지식 수준:</label>
+            <select id="knowledge" value={user_knowledge} onChange={(e) => setUserKnowledge(e.target.value)}>
+              <option value="">선택하세요</option>
+              <option value="초보">초보</option>
+              <option value="중급">중급</option>
+              <option value="고급">고급</option>
+            </select>
+          </div>
+          <br/>
           <button onClick={handleUserName}>입장</button>
         </div>
       )}

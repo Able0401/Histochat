@@ -1,11 +1,17 @@
-export const CallGPT = async ({ prompt, pastchatlog }) => {
+export const CallGPT = async ({
+  prompt,
+  pastchatlog,
+  user_name,
+  user_interest,
+  user_knowledge,
+}) => {
   const persona = "세종대왕";
   const learning_obejctive = "한글 창제 과정 배우기";
 
   const user_data = {
-    name: "",
-    interest: "",
-    knowledge: "",
+    name: user_name,
+    interest: user_interest,
+    knowledge: user_knowledge,
   };
   const input = prompt;
 
@@ -20,8 +26,10 @@ export const CallGPT = async ({ prompt, pastchatlog }) => {
     {
       role: "system",
       content:
-        user_data +
-        "\n 위에 제공한 유저 정보와" +
+        user_data.knowledge +
+        "\n 의 역사 지식 수준에 맞춰서" +
+        user_data.interest +
+        "\n 의 드라마 취향에 맞춰서" +
         chatlog +
         "\n 이 이전 대화록에 이어서 " +
         input +
