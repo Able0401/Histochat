@@ -2,7 +2,11 @@ export const CallGPT = async ({ prompt, pastchatlog }) => {
   const persona = "세종대왕";
   const learning_obejctive = "한글 창제 과정 배우기";
 
-  const user_data = "";
+  const user_data = {
+    name: "",
+    interest: "",
+    knowledge: "",
+  };
   const input = prompt;
 
   const chatlog = "이전대화: \n" + pastchatlog;

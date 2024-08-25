@@ -17,15 +17,10 @@ const Userinput = ( { loading , onSubmit}) => {
     }
   }
 
-  const handleEnter = (e) => {
-    if (e.key === 'Enter') {
-      handleClick();
-    }
-  }
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <TextArea value={userInput} onChange={handleUserInput} placeholder='채팅을 입력해주세요' onKeyDown={handleEnter} />
+      <TextArea value={userInput} onChange={handleUserInput} placeholder='채팅을 입력해주세요'/>
       <Button style={{ height: '100%' }} loading={loading} onClick={handleClick} >전송</Button>
     </div>
   );

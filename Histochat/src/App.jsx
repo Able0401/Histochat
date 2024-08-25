@@ -3,7 +3,7 @@ import {CallGPT} from "./api/gpt"
 import Userinput from './components/Userinput';
 import styled from 'styled-components';
 import {db} from './api/firebase'
-import { collection, addDoc, updateDoc} from "firebase/firestore";
+import { collection, addDoc} from "firebase/firestore";
 
 function App() {
   const [chatlog, setChatlog] = useState([]);
@@ -28,8 +28,11 @@ function App() {
     try {
       setLoading(true);
       const message = await CallGPT({ prompt: userInput, pastchatlog: chatlog });
-      setData(message);
       handleChat(userInput, message);
+      addDoc(collection(db, user_name+"vanila"), {
+        input: userInput,
+        output: message,
+      });
     } catch (error) {
       console.error(error);
     } finally { 
@@ -53,11 +56,10 @@ function App() {
     } else {
       setChatlog(chatlog.concat(user_name + "\n"));
       setUserNameFlag(true);
-      addDoc(collection(db, "chats"), {
+      addDoc(collection(db, user_name+"vanila"), {
         name: user_name,
         interest: user_interest,
-        knowledge: user_knowledge,
-        chatlog: chatlog
+        knowledge: user_knowledge
       });
     }
   };
