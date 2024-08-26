@@ -14,9 +14,8 @@ function App() {
   const [user_knowledge, setUserKnowledge] = useState("");
   const [user_name_flag, setUserNameFlag] = useState(false);
 
-  const handleChat = (user1, user2, num) => {
+  const handleChat = (user1, user2) => {
     const chat = [
-      {chat_number : num},
       { user: user_name, message: user1 },
       { user: "세종대왕", message: user2 },
     ];
@@ -31,13 +30,12 @@ function App() {
     try {
       setLoading(true);
       const message = await CallGPT({ prompt: userInput, pastchatlog: chatlog });
-      handleChat(userInput, message, chat_num);
+      handleChat(userInput, message);
       addDoc(collection(db, user_name+"vanila"), {
-        chat_number : (chatlog.length-1)/3 + 1,
+        chat_number : (chatlog.length)/2,
         input: userInput,
         output: message,
       });
-      chat_num +=1;
     } catch (error) {
       console.error(error);
     } finally { 
@@ -59,7 +57,6 @@ function App() {
       alert("이름을 입력해주세요");
       
     } else {
-      setChatlog(chatlog.concat(user_name + "\n"));
       setUserNameFlag(true);
       addDoc(collection(db, user_name+"vanila"), {
         name: user_name,
