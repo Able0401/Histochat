@@ -7,7 +7,6 @@ import { collection, addDoc} from "firebase/firestore";
 
 function App() {
   const [chatlog, setChatlog] = useState([]);
-  const [data, setData] = useState("");
   
   const [user_name, setUserName] = useState("");
   const [user_interest, setUserInterest] = useState("");
@@ -23,8 +22,6 @@ function App() {
   };
 
   const [loading, setLoading] = useState(false);
-  
-  var chat_num = 1;
 
   const handleClickAPICall = async (userInput) => {
     try {
