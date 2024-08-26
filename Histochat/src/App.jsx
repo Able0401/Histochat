@@ -14,10 +14,10 @@ function App() {
   const [user_knowledge, setUserKnowledge] = useState("");
   const [user_name_flag, setUserNameFlag] = useState(false);
 
-  const handleChat = (user1, user2) => {
+  const handleChat = (message1, message2) => {
     const chat = [
-      { user: user_name, message: user1 },
-      { user: "세종대왕", message: user2 },
+      { user: user_name, message: message1 },
+      { user: "세종대왕", message: message2 },
     ];
     setChatlog(chatlog.concat(chat));
   };
@@ -30,12 +30,17 @@ function App() {
     try {
       setLoading(true);
       const message = await CallGPT({ prompt: userInput, pastchatlog: chatlog });
-      handleChat(userInput, message);
-      addDoc(collection(db, user_name+"vanila"), {
+      if (chatlog.length === 0) {
+        handleChat("", message);
+      } else {
+        handleChat(userInput, message);
+        addDoc(collection(db, user_name+"vanila"), {
         chat_number : (chatlog.length)/2,
         input: userInput,
         output: message,
       });
+      }
+      
     } catch (error) {
       console.error(error);
     } finally { 
@@ -63,11 +68,15 @@ function App() {
         interest: user_interest,
         knowledge: user_knowledge
       });
+      handleClickAPICall("안녕하세요");
     }
   };
 
 
   const chatlogArray = chatlog.map((chat, index) => {
+    if (chat.message === "") {
+      return null;
+    }
     return (
       <div key={index} style={{ textAlign: chat.user === user_name ? "right" : "left", marginRight: "20px"}}>
         <div style={{ fontWeight: "bold", marginBottom: "5px" }}>{chat.user}</div>
@@ -87,7 +96,7 @@ function App() {
           </div>
           <br/>
           <div className="input-container" style={{width : "620px"}}>
-            <Userinput isloading={loading} onSubmit={handleSubmit}/>
+            <Userinput isloading={loading} onSubmit={handleSubmit} />
           </div>
         </AppConatiner>
       ) : (
