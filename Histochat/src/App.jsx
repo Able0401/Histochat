@@ -74,7 +74,8 @@ function App() {
     return (
       <div key={index} style={{ textAlign: chat.user === user_name ? "right" : "left" }}>
         <div style={{ fontWeight: "bold", marginBottom: "5px" }}>{chat.user}</div>
-        <div style={{ background: chat.user === user_name ? "#e6e6e6" : "#f2f2f2", padding: "10px", borderRadius: "10px", display: "inline-block", whiteSpace: "pre-line" }}>{chat.message}</div>
+        <div style={{ background: chat.user === user_name ? "#C3C1C1" : "#8D8C8C", color : chat.user === user_name ? "#FFFFFF" : "#000000"
+           ,padding: "10px", borderRadius: "10px", display: "inline-block", whiteSpace: "pre-line" }}>{chat.message}</div>
         <br />
       </div>
     );
