@@ -74,32 +74,33 @@ function App() {
     return (
       <div key={index} style={{ textAlign: chat.user === user_name ? "right" : "left" }}>
         <div style={{ fontWeight: "bold", marginBottom: "5px" }}>{chat.user}</div>
-        <div style={{ background: chat.user === user_name ? "#e6e6e6" : "#f2f2f2", padding: "10px", borderRadius: "10px", display: "inline-block" }}>{chat.message}</div>
+        <div style={{ background: chat.user === user_name ? "#e6e6e6" : "#f2f2f2", padding: "10px", borderRadius: "10px", display: "inline-block", whiteSpace: "pre-line" }}>{chat.message}</div>
         <br />
       </div>
     );
   });
   return (
-    <>
-    <h1>Histochat</h1>
+    <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
       {user_name_flag ? (
-        <AppConatiner>
-          <div className="chatlog-container" style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px", maxHeight: "1000px", overflowY: "scroll" }}>
+          <AppConatiner>
+          <h1>Histochat</h1>
+          <div className="chatlog-container" style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px", width : "600px", maxHeight: "1000px", overflowY: "scroll" }}>
             <div className="chatlog">{chatlogArray}</div>  
           </div>
           <br/>
-          <div className="input-container">
+          <div className="input-container" style={{width : "620px"}}>
             <Userinput isloading={loading} onSubmit={handleSubmit}/>
           </div>
         </AppConatiner>
       ) : (
         <div>
+          <h1>Histochat</h1>
           <h3>이름을 입력해주세요</h3>
           <input type="text" value={user_name} onChange={handleUserNameInput}/>
           <button onClick={handleUserName}>입장</button>
         </div>
       )}
-    </>
+    </div>
   )
 
 }
@@ -108,6 +109,8 @@ export default App;
 const AppConatiner = styled.div`
   padding: 20px 20px 20px 20px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   max-width: 800px;
   width : 100%
