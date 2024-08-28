@@ -3,7 +3,7 @@ import {CallGPT} from "./api/gpt"
 import Userinput from './components/Userinput';
 import styled from 'styled-components';
 import {db} from './api/firebase'
-import { collection, addDoc} from "firebase/firestore";
+import { doc, addDoc, setDoc, collection} from "firebase/firestore";
 
 function App() {
   const [chatlog, setChatlog] = useState([]);
@@ -26,7 +26,7 @@ function App() {
   const handleClickAPICall = async (userInput) => {
     try {
       setLoading(true);
-      const message = await CallGPT({ prompt: userInput, pastchatlog: chatlog });
+      const message = await CallGPT({ prompt: userInput, pastchatlog: chatlog, user_name : user_name });
       if (chatlog.length === 0) {
         handleChat("", message);
       } else {
@@ -60,11 +60,12 @@ function App() {
       
     } else {
       setUserNameFlag(true);
-      addDoc(collection(db, user_name+"vanila"), {
+      setDoc(doc(db, user_name + "vanila", "Info"), {
         name: user_name,
         interest: user_interest,
-        knowledge: user_knowledge
-      });
+        knowledge: user_knowledge, 
+        evaluation : {}
+      })
       handleClickAPICall("안녕하세요");
     }
   };
