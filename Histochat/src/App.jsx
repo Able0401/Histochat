@@ -6,6 +6,7 @@ import {db} from './api/firebase'
 import { doc, addDoc, setDoc, collection} from "firebase/firestore";
 
 function App() {
+  const persona = "나폴레옹";
   const [chatlog, setChatlog] = useState([]);
   
   const [user_name, setUserName] = useState("");
@@ -16,7 +17,7 @@ function App() {
   const handleChat = (message1, message2) => {
     const chat = [
       { user: user_name, message: message1 },
-      { user: "세종대왕", message: message2 },
+      { user: persona, message: message2 },
     ];
     setChatlog(chatlog.concat(chat));
   };
@@ -26,7 +27,7 @@ function App() {
   const handleClickAPICall = async (userInput) => {
     try {
       setLoading(true);
-      const message = await CallGPT({ prompt: userInput, pastchatlog: chatlog, user_name : user_name });
+      const message = await CallGPT({ persona : persona, prompt: userInput, pastchatlog: chatlog, user_name : user_name });
       if (chatlog.length === 0) {
         handleChat("", message);
       } else {
@@ -77,6 +78,7 @@ function App() {
     }
     return (
       <div key={index} style={{ textAlign: chat.user === user_name ? "right" : "left", marginRight: "20px"}}>
+        <br />
         <div style={{ fontWeight: "bold", marginBottom: "5px" }}>{chat.user}</div>
         <div style={{ background: chat.user === user_name ? "#8D8C8C" : "#C3C1C1", color : chat.user === user_name ? "#FFFFFF" : "#000000"
            ,padding: "10px", borderRadius: "10px", display: "inline-block", whiteSpace: "pre-line"}}>{chat.message}</div>
@@ -88,8 +90,7 @@ function App() {
     <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
       {user_name_flag ? (
           <AppConatiner>
-          <h1>Histochat</h1>
-          <div className="chatlog-container" style={{ border: "1px solid #ccc", borderRadius: "5px", padding: "10px", width : "600px", maxHeight: "1000px", overflowY: "scroll" }}>
+          <div className="chatlog-container" style={{ borderRadius: "5px", padding: "10px", width : "600px", overflowY: "scroll" }}>
             <div className="chatlog">{chatlogArray}</div>  
           </div>
           <br/>
@@ -99,7 +100,6 @@ function App() {
         </AppConatiner>
       ) : (
         <div>
-          <h1>Histochat</h1>
           <h3>이름을 입력해주세요</h3>
           <input type="text" value={user_name} onChange={handleUserNameInput}/>
           <button onClick={handleUserName}>입장</button>
