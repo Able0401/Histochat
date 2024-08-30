@@ -27,7 +27,7 @@ function App() {
   const handleClickAPICall = async (userInput) => {
     try {
       setLoading(true);
-      const message = await CallGPT({ persona : persona, prompt: userInput, pastchatlog: chatlog, user_name : user_name });
+      const message = await CallGPT({ input_persona : persona, prompt: userInput, pastchatlog: chatlog, user_name : user_name });
       if (chatlog.length === 0) {
         handleChat("", message);
       } else {

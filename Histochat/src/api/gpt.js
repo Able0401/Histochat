@@ -8,7 +8,8 @@ export const CallGPT = async ({
   user_name,
 }) => {
   const persona = input_persona;
-  const learning_obejctive = `${persona}에게 고민상담을 해보고 ${persona}가 알려주는 지혜 배우기`;
+  // const learning_obejctive = `${persona}에게 개혁을 추진하면서 했던 선택들과 그 과정에서 고민했던 것들을 듣고 이유 알아보기`;
+  const learning_obejctive = `$${persona}겪었던 역경과 그 어려움 속에서 왜 이런 선택을 했고 무슨 생각으로 했으며, 그 결과는 무엇이었는지, 그걸 어떻게 극복했는지 이해해보자.`;
   // const specific_learning_objective = {
   //   "훈민정음 창제의 배경 배우기": false,
   //   "훈민정음 창제의 목적 배우기": false,
@@ -52,16 +53,6 @@ export const CallGPT = async ({
     const messages = [
       { role: "system", content: init_prompt1 },
       { role: "system", content: init_prompt2 },
-      {
-        role: "system",
-        content:
-          user_data +
-          "\n 위에 제공한 유저 정보와" +
-          chatlog +
-          "\n 이 이전 대화록에 이어서 " +
-          input +
-          "에 대한 답변을 해줘.",
-      },
       { role: "user", content: input },
     ];
 
@@ -87,16 +78,6 @@ export const CallGPT = async ({
       { role: "system", content: init_prompt1 },
       { role: "system", content: init_prompt2 },
       { role: "system", content: init_prompt5 },
-      {
-        role: "system",
-        content:
-          user_data +
-          "\n 위에 제공한 유저 정보와" +
-          chatlog +
-          "\n 이 이전 대화록에 이어서 " +
-          input +
-          "에 대한 답변을 해줘.",
-      },
       { role: "user", content: input },
     ];
 
