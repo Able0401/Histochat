@@ -23,7 +23,6 @@ function App() {
   };
 
   const [loading, setLoading] = useState(false);
-  const today = new Date();
 
   const handleClickAPICall = async (userInput) => {
     try {
