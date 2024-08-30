@@ -23,6 +23,7 @@ function App() {
   };
 
   const [loading, setLoading] = useState(false);
+  const today = new Date();
 
   const handleClickAPICall = async (userInput) => {
     try {
@@ -34,6 +35,7 @@ function App() {
         handleChat(userInput, message);
         addDoc(collection(db, user_name+"vanila"), {
         chat_number : (chatlog.length)/2,
+        timestamp : new Date(),
         input: userInput,
         output: message,
       });
