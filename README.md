@@ -1,62 +1,75 @@
-# React + Vite
+# HistoChat: AI-Powered Historical Personas for Transforming Middle School History Education
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Abstract
 
-Currently, two official plugins are available:
+This paper explores the **potential of AI-powered historical personas, specifically through a system called HistoChat, to transform middle school history education** by fostering personalized engagement and cultivating historical empathy. Based on a formative study that identified challenges in traditional history learning and user expectations for AI, two versions of HistoChat were developed: a **Baseline version** that passively responded to student queries, and an **Experimental version** designed for active, personalized, and proactive engagement. 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+A subsequent user study with middle school students demonstrated that these AI interactions fostered deeper inquiry, curiosity, and emotional engagement. Students reported that AI historical figures facilitated **self-directed learning**, provided **comprehensive and personalized explanations** beyond textbooks, supported **perspective-taking** through immersive dialogue, and evoked **internal motivation** by connecting historical content to personal interests. 
 
-## Expanding the ESLint configuration
+While acknowledging benefits like enhanced engagement and personalized learning, the study also surfaced limitations such as the risk of over-reliance on AI, potential for misinformation, and challenges in promoting systemic historical reasoning beyond biographical narratives. The research expands the role of AI from a mere task assistant to an **epistemic and relational partner**, highlighting the need for careful design that balances student autonomy with pedagogical structure for effective and ethically responsible integration in real-world classrooms.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## System Overview
 
-# Histochat Comparison
+HistoChat enables middle school students to engage in immersive conversations with AI-powered historical personas, transforming traditional history education through personalized and empathetic interactions.
 
-이 프로젝트는 두 가지 버전의 Histochat (Baseline과 Advanced)을 한 화면에서 동시에 비교할 수 있는 애플리케이션입니다.
+![HistoChat System Comparison](./Both_walkthrough.png)
+*Figure 1: Comparison of Baseline and Experimental HistoChat versions showing different interaction patterns and pedagogical approaches*
 
-## 기능
+> **Note**: To display the system comparison figure, please add the `Both_walkthrough.png` image file to the project root directory.
 
-- 두 개의 Histochat 인스턴스를 나란히 표시하여 비교 가능
-- 왼쪽에는 Baseline Histochat, 오른쪽에는 Advanced Histochat 배치
-- 각각 다른 대화 인물 설정 가능
-- 독립적인 채팅 입력 및 대화 흐름
+### Key Features
 
-## 시작하기
+#### 🎯 **Baseline HistoChat**
+- **Passive Response Model**: Responds to student queries in a straightforward manner
+- **Traditional Q&A Format**: Follows conventional question-answer interactions
+- **Direct Information Delivery**: Provides historical facts and explanations when asked
+- **Minimal Learning Objective Integration**: Basic goal-oriented conversation
 
-1. 저장소 클론
-   ```
-   git clone https://github.com/yourusername/Histochat.git
-   cd Histochat
-   ```
+#### 🚀 **Experimental HistoChat**
+- **Proactive Engagement**: Actively guides conversations and asks follow-up questions
+- **Three-Challenge Framework**: Presents three compelling historical adversities for student selection
+- **(1) Presenting Challenges**: Offers relatable historical scenarios with engaging titles
+- **(2) Personal Connection**: Relates student's circumstances to historical experiences
+- **(3) Gradual Storytelling**: Reveals historical narratives progressively
+- **(4) Active Assessment**: Continuously checks understanding and adapts approach
 
-2. 의존성 설치
-   ```
-   npm install
-   ```
+### Educational Impact
 
-3. 환경 변수 설정
-   ```
-   cp .env.example .env
-   ```
-   `.env` 파일을 열고 필요한 API 키 설정
+**✅ Benefits Observed:**
+- Enhanced student curiosity and deeper historical inquiry
+- Personalized learning experiences tailored to individual interests
+- Development of historical empathy through perspective-taking
+- Self-directed exploration beyond traditional textbook limitations
+- Increased emotional engagement with historical content
 
-4. 개발 서버 실행
-   ```
-   npm run dev
-   ```
+**⚠️ Limitations Identified:**
+- Risk of over-dependence on AI for learning
+- Potential for historical misinformation if not carefully monitored
+- Challenges in developing systemic historical reasoning beyond biographical focus
+- Need for balanced integration with traditional pedagogical methods
 
-5. 브라우저에서 `http://localhost:5173` 접속
+## Technical Implementation
 
-## 사용 방법
+- **Frontend**: React + Vite for responsive user interface
+- **AI Integration**: GPT-4o API for natural language conversation
+- **Database**: Firebase Firestore for conversation logging and analysis
+- **Deployment**: Firebase Hosting for scalable access
 
-1. 시작 화면에서 왼쪽 Histochat 대화 인물과 오른쪽 Histochat 대화 인물을 설정
-2. 사용자 이름을 입력하고 '입장' 버튼 클릭
-3. 두 개의 채팅창이 표시되며, 각각 독립적으로 대화 가능
-4. 각 채팅창은 해당 버전의 Histochat 알고리즘을 사용
+## Research Significance
 
-## 개발 정보
+This work represents a paradigm shift in educational AI, moving beyond simple task assistance to establish AI as an **epistemic and relational partner** in learning. The findings have implications for:
 
-- React와 Vite를 사용하여 개발
-- GPT-4o API를 활용한 대화 생성
-- Firebase Firestore를 사용한 대화 데이터 관리
+- Design of AI-powered educational tools
+- Integration of empathy-building technologies in curricula
+- Ethical considerations in AI-student interactions
+- Future development of personalized learning systems
+
+## Live Demo
+
+🌐 **Access HistoChat**: [https://histochat-bbf8e.web.app](https://histochat-bbf8e.web.app)
+
+Experience both Baseline and Experimental versions side-by-side to understand the differences in AI-powered historical education approaches.
+
+---
+
+*This research contributes to the growing field of educational AI by demonstrating how thoughtful design of AI personas can create meaningful learning experiences that go beyond information delivery to foster genuine historical understanding and empathy.*

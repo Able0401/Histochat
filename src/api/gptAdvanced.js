@@ -1,6 +1,19 @@
 import { db } from "./firebase.js";
 import { doc, getDoc, updateDoc, addDoc, setDoc, collection } from "firebase/firestore";
 
+// Function to remove markdown formatting
+const removeMarkdown = (text) => {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '$1')  // Remove **bold**
+    .replace(/\*(.*?)\*/g, '$1')     // Remove *italic*
+    .replace(/__(.*?)__/g, '$1')     // Remove __underline__
+    .replace(/_(.*?)_/g, '$1')       // Remove _italic_
+    .replace(/`(.*?)`/g, '$1')       // Remove `code`
+    .replace(/~~(.*?)~~/g, '$1')     // Remove ~~strikethrough~~
+    .replace(/#{1,6}\s+(.*)/g, '$1') // Remove headers
+    .replace(/\[(.*?)\]\(.*?\)/g, '$1'); // Remove links [text](url)
+};
+
 export const CallGPTAdvanced = async ({
   input_persona,
   prompt,
@@ -54,7 +67,8 @@ export const CallGPTAdvanced = async ({
     const responseData = await response.json();
 
     const message = responseData.choices[0].message.content;
-    return message;
+    const cleanMessage = removeMarkdown(message);
+    return cleanMessage;
   } else {
     const messages = [
       { role: "system", content: init_prompt1 },
@@ -80,6 +94,7 @@ export const CallGPTAdvanced = async ({
     const responseData = await response.json();
 
     const message = responseData.choices[0].message.content;
+    const cleanMessage = removeMarkdown(message);
     
     // Save to Firebase
     if (pastchatlog.length > 0) {
@@ -87,10 +102,10 @@ export const CallGPTAdvanced = async ({
         chat_number: (pastchatlog.length) / 2,
         timestamp: new Date(),
         input: input,
-        output: message,
+        output: cleanMessage,
       });
     }
 
-    return message;
+    return cleanMessage;
   }
 }; 
