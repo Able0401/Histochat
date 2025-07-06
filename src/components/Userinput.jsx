@@ -33,10 +33,34 @@ const Userinput = ({ loading, onSubmit }) => {
 
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <TextArea value={userInput} onChange={
-        handleUserInput} placeholder='Type your message here...' onKeyDown={handleEnter}/>
-      <Button style={{ height: '100%' }} loading={loading} onClick={handleClick} >Send</Button>
+    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <TextArea 
+        value={userInput} 
+        onChange={handleUserInput} 
+        placeholder='Type your message here...' 
+        onKeyDown={handleEnter}
+        style={{
+          flex: 1,
+          fontSize: '16px',
+          borderRadius: '8px'
+        }}
+        rows={2}
+      />
+      <Button 
+        style={{ 
+          height: '60px',
+          padding: '0 20px',
+          fontSize: '16px',
+          borderRadius: '8px',
+          backgroundColor: '#4CAF50',
+          borderColor: '#4CAF50'
+        }} 
+        type="primary"
+        loading={loading} 
+        onClick={handleClick}
+      >
+        Send
+      </Button>
     </div>
   );
 }
