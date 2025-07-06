@@ -13,7 +13,7 @@ const Userinput = ({ loading, onSubmit }) => {
   }
   const handleClick = () => {
     if (userInput.trim() === "") {
-      alert("채팅을 입력해주세요");
+      alert("Please enter a message");
     } else {
       setUserInput("");
       onSubmit(userInput);
@@ -35,8 +35,8 @@ const Userinput = ({ loading, onSubmit }) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <TextArea value={userInput} onChange={
-        handleUserInput} placeholder='채팅을 입력해주세요' onKeyDown={handleEnter}/>
-      <Button style={{ height: '100%' }} loading={loading} onClick={handleClick} >전송</Button>
+        handleUserInput} placeholder='Type your message here...' onKeyDown={handleEnter}/>
+      <Button style={{ height: '100%' }} loading={loading} onClick={handleClick} >Send</Button>
     </div>
   );
 }

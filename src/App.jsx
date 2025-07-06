@@ -9,10 +9,9 @@ function App() {
   // Shared state
   const [user_name, setUserName] = useState("");
   const [user_name_flag, setUserNameFlag] = useState(false);
-  const [user_interest, setUserInterest] = useState("");
 
   // Shared persona
-  const [persona, setPersona] = useState("나폴레옹");
+  const [persona, setPersona] = useState("Napoleon");
   
   // Baseline chat states
   const [baselineChatlog, setBaselineChatlog] = useState([]);
@@ -22,7 +21,7 @@ function App() {
   const [advancedChatlog, setAdvancedChatlog] = useState([]);
   const [advancedLoading, setAdvancedLoading] = useState(false);
   const [advancedLearningObjective, setAdvancedLearningObjective] = useState(
-    `${persona}겪었던 역경과 그 어려움 속에서 왜 이런 선택을 했고 무슨 생각으로 했으며, 그 결과는 무엇이었는지, 그걸 어떻게 극복했는지 이해해보자.`
+    `Let's understand the adversities ${persona} faced and why he made certain choices in those difficult times, what he was thinking, what the results were, and how he overcame them.`
   );
 
   // Handle baseline chat
@@ -105,22 +104,18 @@ function App() {
   const handlePersonaInput = (e) => {
     setPersona(e.target.value);
     setAdvancedLearningObjective(
-      `${e.target.value}겪었던 역경과 그 어려움 속에서 왜 이런 선택을 했고 무슨 생각으로 했으며, 그 결과는 무엇이었는지, 그걸 어떻게 극복했는지 이해해보자.`
+      `Let's understand the adversities ${e.target.value} faced and why he made certain choices in those difficult times, what he was thinking, what the results were, and how he overcame them.`
     );
-  };
-
-  const handleUserInterestInput = (e) => {
-    setUserInterest(e.target.value);
   };
 
   const handleUserName = () => {
     if (user_name === "") {
-      alert("이름을 입력해주세요");
+      alert("Please enter your name");
     } else {
       setUserNameFlag(true);
       // Initialize both chats
-      handleBaselineAPICall("안녕하세요");
-      handleAdvancedAPICall("안녕하세요");
+      handleBaselineAPICall("Hello");
+      handleAdvancedAPICall("Hello");
     }
   };
 
@@ -183,16 +178,14 @@ function App() {
         </ComparisonContainer>
       ) : (
         <div style={{padding: "20px"}}>
-          <h2>대화하고 싶은 역사적 인물을 입력해주세요.</h2>
+          <h2>Please enter a historical figure you want to chat with.</h2>
           <p/>
-          <h3>예) 나폴레옹, 아리스토텔레스</h3>
+          <h3>Examples: Napoleon, Aristotle, Leonardo da Vinci</h3>
           <input type="text" value={persona} onChange={handlePersonaInput}/>
-          <h3>이름을 입력해주세요</h3>
+          <h3>Please enter your name</h3>
           <input type="text" value={user_name} onChange={handleUserNameInput}/>
-          <h3>관심사를 입력해주세요</h3>
-          <input type="text" value={user_interest} onChange={handleUserInterestInput}/>
           <p/>
-          <button onClick={handleUserName}>입장</button>
+          <button onClick={handleUserName}>Enter</button>
         </div>
       )}
     </div>
