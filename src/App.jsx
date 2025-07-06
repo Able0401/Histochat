@@ -279,18 +279,23 @@ function App() {
           flexDirection: "column",
           height: "100vh",
           backgroundColor: "#f5f5f5",
-          overflow: "hidden"
+          overflow: "auto",
+          padding: "20px"
         }}>
-          {/* Paper Introduction Header */}
           <div style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            width: "100%",
             backgroundColor: "white",
-            padding: "25px 20px",
-            borderBottom: "2px solid #e0e0e0",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+            borderRadius: "20px",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
+            padding: "40px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "30px"
           }}>
+            {/* Paper Introduction Section */}
             <div style={{
-              maxWidth: "1200px",
-              margin: "0 auto",
               textAlign: "center"
             }}>
               <h1 style={{
@@ -298,65 +303,83 @@ function App() {
                 fontWeight: "bold",
                 color: "#1976d2",
                 marginBottom: "20px",
-                lineHeight: "1.2",
-                padding: "0 20px"
+                lineHeight: "1.2"
               }}>
                 HistoChat: AI-Powered Historical Personas for Transforming Middle School History Education
               </h1>
               
               <div style={{
-                backgroundColor: "#f8f9fa",
                 padding: "20px",
-                borderRadius: "12px",
-                marginBottom: "25px",
-                border: "1px solid #e0e0e0"
+                marginBottom: "20px"
               }}>
-                <h2 style={{
-                  fontSize: "18px",
-                  color: "#2c3e50",
-                  marginBottom: "15px",
-                  fontWeight: "600"
-                }}>
-                  Research Overview
-                </h2>
                 <p style={{
                   fontSize: "14px",
-                  lineHeight: "1.5",
+                  lineHeight: "1.6",
                   color: "#555",
                   textAlign: "left",
-                  maxWidth: "900px",
+                  maxWidth: "950px",
+                  margin: "0 auto",
+                  marginBottom: "16px"
+                }}>
+                  This paper explores the <strong>potential of AI-powered historical personas, specifically through a system called HistoChat, to transform middle school history education</strong> by fostering personalized engagement and cultivating historical empathy. Based on a formative study that identified challenges in traditional history learning and user expectations for AI, two versions of HistoChat were developed: a <strong>Baseline version</strong> that passively responded to student queries, and an <strong>Experimental version</strong> designed for active, personalized, and proactive engagement.
+                </p>
+                <p style={{
+                  fontSize: "14px",
+                  lineHeight: "1.6",
+                  color: "#555",
+                  textAlign: "left",
+                  maxWidth: "950px",
+                  margin: "0 auto",
+                  marginBottom: "16px"
+                }}>
+                  A subsequent user study with middle school students demonstrated that these AI interactions fostered deeper inquiry, curiosity, and emotional engagement. Students reported that AI historical figures facilitated <strong>self-directed learning</strong>, provided <strong>comprehensive and personalized explanations</strong> beyond textbooks, supported <strong>perspective-taking</strong> through immersive dialogue, and evoked <strong>internal motivation</strong> by connecting historical content to personal interests.
+                </p>
+                <p style={{
+                  fontSize: "14px",
+                  lineHeight: "1.6",
+                  color: "#555",
+                  textAlign: "left",
+                  maxWidth: "950px",
                   margin: "0 auto"
                 }}>
-                  This paper explores the <strong>potential of AI-powered historical personas to transform middle school history education</strong> by fostering personalized engagement and cultivating historical empathy. We developed two versions of HistoChat: a <strong>Baseline version</strong> that passively responds to student queries, and an <strong>Experimental version</strong> designed for active, personalized, and proactive engagement.
+                  While acknowledging benefits like enhanced engagement and personalized learning, the study also surfaced limitations such as the risk of over-reliance on AI, potential for misinformation, and challenges in promoting systemic historical reasoning beyond biographical narratives. The research expands the role of AI from a mere task assistant to an <strong>epistemic and relational partner</strong>, highlighting the need for careful design that balances student autonomy with pedagogical structure for effective and ethically responsible integration in real-world classrooms.
                 </p>
               </div>
 
+              {/* System Comparison Cards */}
               <div style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                gap: "20px",
-                maxWidth: "800px",
-                margin: "0 auto"
+                gridTemplateColumns: "1fr 1fr",
+                gap: "25px",
+                maxWidth: "1000px",
+                margin: "0 auto 25px auto"
               }}>
                 <div style={{
                   backgroundColor: "#e3f2fd",
-                  padding: "20px",
-                  borderRadius: "10px",
-                  border: "1px solid #bbdefb"
+                  padding: "30px 25px",
+                  borderRadius: "15px",
+                  border: "2px solid #bbdefb",
+                  minHeight: "140px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center"
                 }}>
                   <h3 style={{
                     color: "#1976d2",
-                    marginBottom: "12px",
-                    fontSize: "16px",
-                    fontWeight: "600"
+                    marginBottom: "15px",
+                    fontSize: "22px",
+                    fontWeight: "700",
+                    textAlign: "center"
                   }}>
-                    🎯 Baseline HistoChat
+                    Baseline HistoChat
                   </h3>
                   <p style={{
-                    fontSize: "13px",
-                    color: "#555",
-                    lineHeight: "1.4",
-                    margin: 0
+                    fontSize: "16px",
+                    color: "#333",
+                    lineHeight: "1.5",
+                    margin: 0,
+                    textAlign: "center",
+                    fontWeight: "500"
                   }}>
                     Passive response model with traditional Q&A format. Provides direct historical information when asked.
                   </p>
@@ -364,174 +387,176 @@ function App() {
 
                 <div style={{
                   backgroundColor: "#fff3e0",
-                  padding: "20px",
-                  borderRadius: "10px",
-                  border: "1px solid #ffcc02"
+                  padding: "30px 25px",
+                  borderRadius: "15px",
+                  border: "2px solid #ffcc02",
+                  minHeight: "140px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center"
                 }}>
                   <h3 style={{
                     color: "#f57c00",
-                    marginBottom: "12px",
-                    fontSize: "16px",
-                    fontWeight: "600"
+                    marginBottom: "15px",
+                    fontSize: "22px",
+                    fontWeight: "700",
+                    textAlign: "center"
                   }}>
-                    🚀 Experimental HistoChat
+                    Experimental HistoChat
                   </h3>
                   <p style={{
-                    fontSize: "13px",
-                    color: "#555",
-                    lineHeight: "1.4",
-                    margin: 0
+                    fontSize: "16px",
+                    color: "#333",
+                    lineHeight: "1.5",
+                    margin: 0,
+                    textAlign: "center",
+                    fontWeight: "500"
                   }}>
                     Proactive engagement with three-challenge framework. Actively guides conversations and builds personal connections.
                   </p>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Input Form Section */}
-          <div style={{ 
-            backgroundColor: "#f5f5f5",
-            padding: "30px 20px",
-            display: "flex", 
-            justifyContent: "center", 
-            alignItems: "center",
-            flex: 1
-          }}>
-            <div style={{ 
-              backgroundColor: "white",
-              padding: "35px",
-              borderRadius: "15px",
-              boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
-              maxWidth: "450px",
-              width: "100%",
-              textAlign: "center"
+            {/* System Walkthrough Image */}
+            <div style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginBottom: "15px"
             }}>
-              <h2 style={{ 
-                marginBottom: "10px", 
-                color: "#333",
-                fontSize: "24px",
-                fontWeight: "700"
-              }}>
-                Start Your Historical Journey
-              </h2>
-              <p style={{
-                marginBottom: "25px",
-                color: "#666",
-                fontSize: "14px",
-                lineHeight: "1.4"
-              }}>
-                Begin by selecting a historical figure and entering your name
-              </p>
-              
-              <div style={{ marginBottom: "20px" }}>
-                <h3 style={{ 
-                  marginBottom: "10px", 
-                  color: "#333", 
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  textAlign: "left"
-                }}>
-                  Choose a Historical Figure
-                </h3>
-                <p style={{ 
-                  marginBottom: "10px", 
-                  color: "#888", 
-                  fontSize: "12px",
-                  textAlign: "left"
-                }}>
-                  Examples: Napoleon, Aristotle, Leonardo da Vinci, Cleopatra
-                </p>
-                <input 
-                  type="text" 
-                  value={persona} 
-                  onChange={handlePersonaInput}
-                  placeholder="Enter historical figure name..."
-                  style={{
-                    padding: "12px",
-                    fontSize: "15px",
-                    border: "2px solid #e0e0e0",
-                    borderRadius: "8px",
-                    width: "100%",
-                    outline: "none",
-                    transition: "all 0.3s ease",
-                    boxSizing: "border-box"
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.borderColor = "#4CAF50";
-                    e.target.style.boxShadow = "0 0 0 2px rgba(76, 175, 80, 0.1)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "#e0e0e0";
-                    e.target.style.boxShadow = "none";
-                  }}
-                />
-              </div>
-              
-              <div style={{ marginBottom: "25px" }}>
-                <h3 style={{ 
-                  marginBottom: "10px", 
-                  color: "#333", 
-                  fontSize: "16px",
-                  fontWeight: "600",
-                  textAlign: "left"
-                }}>
-                  Enter Your Name
-                </h3>
-                <input 
-                  type="text" 
-                  value={user_name} 
-                  onChange={handleUserNameInput}
-                  placeholder="Your name..."
-                  style={{
-                    padding: "12px",
-                    fontSize: "15px",
-                    border: "2px solid #e0e0e0",
-                    borderRadius: "8px",
-                    width: "100%",
-                    outline: "none",
-                    transition: "all 0.3s ease",
-                    boxSizing: "border-box"
-                  }}
-                  onFocus={(e) => {
-                    e.target.style.borderColor = "#4CAF50";
-                    e.target.style.boxShadow = "0 0 0 2px rgba(76, 175, 80, 0.1)";
-                  }}
-                  onBlur={(e) => {
-                    e.target.style.borderColor = "#e0e0e0";
-                    e.target.style.boxShadow = "none";
-                  }}
-                />
-              </div>
-              
-              <button 
-                onClick={handleUserName}
+              <img 
+                src="/Both_walkthrough.png" 
+                alt="HistoChat System Comparison - Baseline vs Experimental"
                 style={{
-                  padding: "15px 35px",
-                  fontSize: "16px",
-                  backgroundColor: "#4CAF50",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "10px",
-                  cursor: "pointer",
-                  transition: "all 0.3s ease",
-                  boxShadow: "0 4px 12px rgba(76, 175, 80, 0.3)",
-                  fontWeight: "600",
-                  letterSpacing: "0.5px"
+                  maxWidth: "100%",
+                  height: "auto",
+                  borderRadius: "15px",
+                  boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                  border: "1px solid #e0e0e0"
                 }}
-                onMouseOver={(e) => {
-                  e.target.style.backgroundColor = "#45a049";
-                  e.target.style.transform = "translateY(-2px)";
-                  e.target.style.boxShadow = "0 6px 16px rgba(76, 175, 80, 0.4)";
-                }}
-                onMouseOut={(e) => {
-                  e.target.style.backgroundColor = "#4CAF50";
-                  e.target.style.transform = "translateY(0)";
-                  e.target.style.boxShadow = "0 4px 12px rgba(76, 175, 80, 0.3)";
-                }}
-              >
-                Start Conversation
-              </button>
+              />
+            </div>
+
+            {/* Input Form Section */}
+            <div style={{
+              display: "flex",
+              justifyContent: "center"
+            }}>
+              <div style={{ 
+                maxWidth: "400px",
+                width: "100%",
+                textAlign: "center"
+              }}>
+                <div style={{ marginBottom: "15px" }}>
+                  <h3 style={{ 
+                    marginBottom: "8px", 
+                    color: "#333", 
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    textAlign: "left"
+                  }}>
+                    Choose a Historical Figure
+                  </h3>
+                  <p style={{ 
+                    marginBottom: "8px", 
+                    color: "#888", 
+                    fontSize: "12px",
+                    textAlign: "left"
+                  }}>
+                    Examples: Napoleon, Aristotle, Leonardo da Vinci, Cleopatra
+                  </p>
+                  <input 
+                    type="text" 
+                    value={persona} 
+                    onChange={handlePersonaInput}
+                    placeholder="Enter historical figure name..."
+                    style={{
+                      padding: "12px",
+                      fontSize: "15px",
+                      border: "2px solid #e0e0e0",
+                      borderRadius: "8px",
+                      width: "100%",
+                      outline: "none",
+                      transition: "all 0.3s ease",
+                      boxSizing: "border-box"
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = "#4CAF50";
+                      e.target.style.boxShadow = "0 0 0 2px rgba(76, 175, 80, 0.1)";
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = "#e0e0e0";
+                      e.target.style.boxShadow = "none";
+                    }}
+                  />
+                </div>
+                
+                <div style={{ marginBottom: "20px" }}>
+                  <h3 style={{ 
+                    marginBottom: "8px", 
+                    color: "#333", 
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    textAlign: "left"
+                  }}>
+                    Enter Your Name
+                  </h3>
+                  <input 
+                    type="text" 
+                    value={user_name} 
+                    onChange={handleUserNameInput}
+                    placeholder="Your name..."
+                    style={{
+                      padding: "12px",
+                      fontSize: "15px",
+                      border: "2px solid #e0e0e0",
+                      borderRadius: "8px",
+                      width: "100%",
+                      outline: "none",
+                      transition: "all 0.3s ease",
+                      boxSizing: "border-box"
+                    }}
+                    onFocus={(e) => {
+                      e.target.style.borderColor = "#4CAF50";
+                      e.target.style.boxShadow = "0 0 0 2px rgba(76, 175, 80, 0.1)";
+                    }}
+                    onBlur={(e) => {
+                      e.target.style.borderColor = "#e0e0e0";
+                      e.target.style.boxShadow = "none";
+                    }}
+                  />
+                </div>
+                
+                <button 
+                  onClick={handleUserName}
+                  style={{
+                    padding: "15px 35px",
+                    fontSize: "16px",
+                    backgroundColor: "#4CAF50",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "10px",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
+                    boxShadow: "0 4px 12px rgba(76, 175, 80, 0.3)",
+                    fontWeight: "600",
+                    letterSpacing: "0.5px"
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = "#45a049";
+                    e.target.style.transform = "translateY(-2px)";
+                    e.target.style.boxShadow = "0 6px 16px rgba(76, 175, 80, 0.4)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = "#4CAF50";
+                    e.target.style.transform = "translateY(0)";
+                    e.target.style.boxShadow = "0 4px 12px rgba(76, 175, 80, 0.3)";
+                  }}
+                >
+                  Start Conversation
+                </button>
+              </div>
             </div>
           </div>
         </div>
