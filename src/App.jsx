@@ -418,26 +418,6 @@ function App() {
               </div>
             </div>
 
-            {/* System Walkthrough Image */}
-            <div style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginBottom: "15px"
-            }}>
-              <img 
-                src="/Both_walkthrough.png" 
-                alt="HistoChat System Comparison - Baseline vs Experimental"
-                style={{
-                  maxWidth: "100%",
-                  height: "auto",
-                  borderRadius: "15px",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-                  border: "1px solid #e0e0e0"
-                }}
-              />
-            </div>
-
             {/* Input Form Section */}
             <div style={{
               display: "flex",
