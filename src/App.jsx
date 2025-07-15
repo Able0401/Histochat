@@ -5,6 +5,43 @@ import { CallGPTBaseline } from './api/gptBaseline';
 import { CallGPTAdvanced } from './api/gptAdvanced';
 
 function App() {
+  // Language state
+  const [language, setLanguage] = useState('en'); // 'en' for English, 'ko' for Korean
+  
+  // Language texts
+  const texts = {
+    en: {
+      title: "HistoChat: AI-Powered Historical Personas for Transforming Middle School History Education",
+      abstract1: "This paper explores the **potential of AI-powered historical personas, specifically through a system called HistoChat, to transform middle school history education** by fostering personalized engagement and cultivating historical empathy. Based on a formative study that identified challenges in traditional history learning and user expectations for AI, two versions of HistoChat were developed: a **Baseline version** that passively responded to student queries, and an **Experimental version** designed for active, personalized, and proactive engagement.",
+      abstract2: "A subsequent user study with middle school students demonstrated that these AI interactions fostered deeper inquiry, curiosity, and emotional engagement. Students reported that AI historical figures facilitated **self-directed learning**, provided **comprehensive and personalized explanations** beyond textbooks, supported **perspective-taking** through immersive dialogue, and evoked **internal motivation** by connecting historical content to personal interests.",
+      abstract3: "While acknowledging benefits like enhanced engagement and personalized learning, the study also surfaced limitations such as the risk of over-reliance on AI, potential for misinformation, and challenges in promoting systemic historical reasoning beyond biographical narratives. The research expands the role of AI from a mere task assistant to an **epistemic and relational partner**, highlighting the need for careful design that balances student autonomy with pedagogical structure for effective and ethically responsible integration in real-world classrooms.",
+      baselineTitle: "Baseline HistoChat",
+      baselineDesc: "Passive response model with traditional Q&A format. Provides direct historical information when asked.",
+      experimentalTitle: "Experimental HistoChat",
+      experimentalDesc: "Proactive engagement with three-challenge framework. Actively guides conversations and builds personal connections.",
+      chooseHistorical: "Choose a Historical Figure",
+      exampleText: "Examples: Napoleon, Aristotle, Leonardo da Vinci, Cleopatra",
+      enterName: "Enter your name",
+      startChat: "Start Conversation",
+      nameAlert: "Please enter your name"
+    },
+    ko: {
+      title: "HistoChat: 중학생 역사교육 변화를 위한 AI 기반 역사적 인물 시스템",
+      abstract1: "이 연구는 **개인화된 참여와 역사적 공감 능력 함양을 통해 중학생 역사교육을 변화시키기 위한 AI 기반 역사적 인물 시스템인 HistoChat의 잠재력**을 탐구합니다. 전통적인 역사 학습의 문제점과 AI에 대한 사용자 기대를 파악한 형성 연구를 바탕으로, 학생 질문에 수동적으로 응답하는 **기본 버전**과 능동적이고 개인화된 상호작용을 위해 설계된 **실험 버전**의 두 가지 HistoChat 버전을 개발했습니다.",
+      abstract2: "중학생들과의 후속 사용자 연구에서 이러한 AI 상호작용이 더 깊은 탐구, 호기심, 정서적 참여를 촉진한다는 것이 입증되었습니다. 학생들은 AI 역사적 인물이 **자기주도적 학습**을 촉진하고, 교과서를 넘어선 **포괄적이고 개인화된 설명**을 제공하며, 몰입형 대화를 통한 **관점 수용**을 지원하고, 역사적 내용을 개인적 관심사와 연결하여 **내적 동기**를 유발한다고 보고했습니다.",
+      abstract3: "참여도 향상과 개인화 학습 같은 이점을 인정하면서도, 연구는 AI에 대한 과도한 의존 위험, 잘못된 정보 전달 가능성, 전기적 서사를 넘어선 체계적 역사적 추론 촉진의 어려움 같은 한계점도 드러냈습니다. 이 연구는 AI의 역할을 단순한 과업 보조자에서 **인식적이고 관계적인 파트너**로 확장하며, 실제 교실에서 효과적이고 윤리적으로 책임감 있는 통합을 위해 학생 자율성과 교육학적 구조의 균형을 맞춘 신중한 설계의 필요성을 강조합니다.",
+      baselineTitle: "기본 HistoChat",
+      baselineDesc: "전통적인 질문-답변 형식의 수동적 응답 모델. 요청 시 직접적인 역사 정보를 제공합니다.",
+      experimentalTitle: "실험 HistoChat",
+      experimentalDesc: "3단계 도전 프레임워크를 통한 능동적 참여. 적극적으로 대화를 이끌고 개인적 연결을 구축합니다.",
+      chooseHistorical: "역사적 인물 선택",
+      exampleText: "예시: 나폴레옹, 아리스토텔레스, 레오나르도 다 빈치, 클레오파트라",
+      enterName: "이름을 입력하세요",
+      startChat: "대화 시작",
+      nameAlert: "이름을 입력해주세요"
+    }
+  };
+
   // Shared state
   const [user_name, setUserName] = useState("");
   const [user_name_flag, setUserNameFlag] = useState(false);
@@ -22,6 +59,22 @@ function App() {
   const [advancedLearningObjective, setAdvancedLearningObjective] = useState(
     `Let's understand the adversities ${persona} faced and why he made certain choices in those difficult times, what he was thinking, what the results were, and how he overcame them.`
   );
+
+  // Language toggle function
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'ko' : 'en');
+  };
+
+  // Function to render text with bold formatting
+  const renderTextWithBold = (text) => {
+    const parts = text.split(/(\*\*.*?\*\*)/);
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <strong key={index}>{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
+  };
 
   // Handle baseline chat
   const handleBaselineChat = (message1, message2) => {
@@ -50,6 +103,7 @@ function App() {
         prompt: userInput,
         pastchatlog: baselineChatlog,
         user_name: user_name,
+        language: language,
       });
       
       if (baselineChatlog.length === 0) {
@@ -73,6 +127,7 @@ function App() {
         pastchatlog: advancedChatlog,
         user_name: user_name,
         input_learning_obejctive: advancedLearningObjective,
+        language: language,
       });
       
       if (advancedChatlog.length === 0) {
@@ -103,14 +158,15 @@ function App() {
 
   const handlePersonaInput = (e) => {
     setPersona(e.target.value);
-    setAdvancedLearningObjective(
-      `Let's understand the adversities ${e.target.value} faced and why he made certain choices in those difficult times, what he was thinking, what the results were, and how he overcame them.`
-    );
+    const objective = language === 'en' 
+      ? `Let's understand the adversities ${e.target.value} faced and why he made certain choices in those difficult times, what he was thinking, what the results were, and how he overcame them.`
+      : `${e.target.value}이 직면한 어려움과 그 어려운 시기에 왜 특정 선택을 했는지, 무엇을 생각했는지, 결과는 무엇이었는지, 그리고 어떻게 극복했는지 이해해봅시다.`;
+    setAdvancedLearningObjective(objective);
   };
 
   const handleUserName = () => {
     if (user_name === "") {
-      alert("Please enter your name");
+      alert(texts[language].nameAlert);
     } else {
       setUserNameFlag(true);
       // Initialize both chats
@@ -207,7 +263,7 @@ function App() {
               textAlign: "center",
               flexShrink: 0
             }}>
-              <h3 style={{ margin: 0, color: "#1976d2" }}>Baseline Histochat - {persona}</h3>
+              <h3 style={{ margin: 0, color: "#1976d2" }}>{texts[language].baselineTitle} - {persona}</h3>
             </div>
             
             <div style={{ 
@@ -250,7 +306,7 @@ function App() {
               textAlign: "center",
               flexShrink: 0
             }}>
-              <h3 style={{ margin: 0, color: "#f57c00" }}>Experimental Histochat - {persona}</h3>
+              <h3 style={{ margin: 0, color: "#f57c00" }}>{texts[language].experimentalTitle} - {persona}</h3>
             </div>
             
             <div style={{ 
@@ -292,8 +348,39 @@ function App() {
             padding: "40px",
             display: "flex",
             flexDirection: "column",
-            gap: "30px"
+            gap: "30px",
+            position: "relative"
           }}>
+            {/* Language Toggle Button */}
+            <button 
+              onClick={toggleLanguage}
+              style={{
+                position: "absolute",
+                top: "20px",
+                right: "20px",
+                padding: "8px 16px",
+                backgroundColor: "#1976d2",
+                color: "white",
+                border: "none",
+                borderRadius: "20px",
+                cursor: "pointer",
+                fontSize: "14px",
+                fontWeight: "500",
+                transition: "all 0.3s ease",
+                zIndex: 1000
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = "#1565c0";
+                e.target.style.transform = "scale(1.05)";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = "#1976d2";
+                e.target.style.transform = "scale(1)";
+              }}
+            >
+              {language === 'en' ? '한국어' : 'English'}
+            </button>
+            
             {/* Paper Introduction Section */}
             <div style={{
               textAlign: "center"
@@ -305,7 +392,7 @@ function App() {
                 marginBottom: "20px",
                 lineHeight: "1.2"
               }}>
-                HistoChat: AI-Powered Historical Personas for Transforming Middle School History Education
+                {texts[language].title}
               </h1>
               
               <div style={{
@@ -321,7 +408,7 @@ function App() {
                   margin: "0 auto",
                   marginBottom: "16px"
                 }}>
-                  This paper explores the <strong>potential of AI-powered historical personas, specifically through a system called HistoChat, to transform middle school history education</strong> by fostering personalized engagement and cultivating historical empathy. Based on a formative study that identified challenges in traditional history learning and user expectations for AI, two versions of HistoChat were developed: a <strong>Baseline version</strong> that passively responded to student queries, and an <strong>Experimental version</strong> designed for active, personalized, and proactive engagement.
+                  {renderTextWithBold(texts[language].abstract1)}
                 </p>
                 <p style={{
                   fontSize: "14px",
@@ -332,7 +419,7 @@ function App() {
                   margin: "0 auto",
                   marginBottom: "16px"
                 }}>
-                  A subsequent user study with middle school students demonstrated that these AI interactions fostered deeper inquiry, curiosity, and emotional engagement. Students reported that AI historical figures facilitated <strong>self-directed learning</strong>, provided <strong>comprehensive and personalized explanations</strong> beyond textbooks, supported <strong>perspective-taking</strong> through immersive dialogue, and evoked <strong>internal motivation</strong> by connecting historical content to personal interests.
+                  {renderTextWithBold(texts[language].abstract2)}
                 </p>
                 <p style={{
                   fontSize: "14px",
@@ -342,7 +429,7 @@ function App() {
                   maxWidth: "950px",
                   margin: "0 auto"
                 }}>
-                  While acknowledging benefits like enhanced engagement and personalized learning, the study also surfaced limitations such as the risk of over-reliance on AI, potential for misinformation, and challenges in promoting systemic historical reasoning beyond biographical narratives. The research expands the role of AI from a mere task assistant to an <strong>epistemic and relational partner</strong>, highlighting the need for careful design that balances student autonomy with pedagogical structure for effective and ethically responsible integration in real-world classrooms.
+                  {renderTextWithBold(texts[language].abstract3)}
                 </p>
               </div>
 
@@ -371,7 +458,7 @@ function App() {
                     fontWeight: "700",
                     textAlign: "center"
                   }}>
-                    Baseline HistoChat
+                    {texts[language].baselineTitle}
                   </h3>
                   <p style={{
                     fontSize: "16px",
@@ -381,7 +468,7 @@ function App() {
                     textAlign: "center",
                     fontWeight: "500"
                   }}>
-                    Passive response model with traditional Q&A format. Provides direct historical information when asked.
+                    {texts[language].baselineDesc}
                   </p>
                 </div>
 
@@ -402,7 +489,7 @@ function App() {
                     fontWeight: "700",
                     textAlign: "center"
                   }}>
-                    Experimental HistoChat
+                    {texts[language].experimentalTitle}
                   </h3>
                   <p style={{
                     fontSize: "16px",
@@ -412,7 +499,7 @@ function App() {
                     textAlign: "center",
                     fontWeight: "500"
                   }}>
-                    Proactive engagement with three-challenge framework. Actively guides conversations and builds personal connections.
+                    {texts[language].experimentalDesc}
                   </p>
                 </div>
               </div>
@@ -436,7 +523,7 @@ function App() {
                     fontWeight: "600",
                     textAlign: "left"
                   }}>
-                    Choose a Historical Figure
+                    {texts[language].chooseHistorical}
                   </h3>
                   <p style={{ 
                     marginBottom: "8px", 
@@ -444,7 +531,7 @@ function App() {
                     fontSize: "12px",
                     textAlign: "left"
                   }}>
-                    Examples: Napoleon, Aristotle, Leonardo da Vinci, Cleopatra
+                    {texts[language].exampleText}
                   </p>
                   <input 
                     type="text" 
@@ -480,7 +567,7 @@ function App() {
                     fontWeight: "600",
                     textAlign: "left"
                   }}>
-                    Enter Your Name
+                    {texts[language].enterName}
                   </h3>
                   <input 
                     type="text" 
@@ -534,7 +621,7 @@ function App() {
                     e.target.style.boxShadow = "0 4px 12px rgba(76, 175, 80, 0.3)";
                   }}
                 >
-                  Start Conversation
+                  {texts[language].startChat}
                 </button>
               </div>
             </div>
