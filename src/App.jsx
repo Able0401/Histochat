@@ -190,6 +190,14 @@ function App() {
     }
   };
 
+  // Back to home function
+  const handleBackToHome = () => {
+    setUserNameFlag(false);
+    setBaselineChatlog([]);
+    setAdvancedChatlog([]);
+    setUserName("");
+  };
+
   // Render chatlogs
   const baselineChatlogArray = baselineChatlog.map((chat, index) => {
     if (chat.message === "") {
@@ -296,13 +304,41 @@ function App() {
               backgroundColor: "#e3f2fd", 
               borderBottom: "1px solid #ccc",
               textAlign: "center",
-              flexShrink: 0
+              flexShrink: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between"
             }}>
+              <button
+                onClick={handleBackToHome}
+                style={{
+                  padding: isMobile ? "4px 8px" : "6px 12px",
+                  backgroundColor: "#6c757d",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  fontSize: isMobile ? "11px" : "12px",
+                  fontWeight: "500",
+                  transition: "all 0.3s ease"
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = "#5a6268";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = "#6c757d";
+                }}
+              >
+                ← {language === 'en' ? 'Back' : '뒤로'}
+              </button>
               <h3 style={{ 
                 margin: 0, 
                 color: "#1976d2", 
-                fontSize: isMobile ? "16px" : "18px" 
+                fontSize: isMobile ? "16px" : "18px",
+                flex: 1,
+                textAlign: "center"
               }}>{texts[language].baselineTitle} - {persona}</h3>
+              <div style={{ width: isMobile ? "40px" : "50px" }}></div>
             </div>
             
             <div style={{ 
