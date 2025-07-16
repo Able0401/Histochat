@@ -2,7 +2,7 @@ import { Input, Button} from 'antd';
 import { useState } from 'react';
 const { TextArea } = Input;
 
-const Userinput = ({ loading, onSubmit }) => {
+const Userinput = ({ loading, onSubmit, isMobile = false }) => {
   const [userInput, setUserInput] = useState("");
   const handleUserInput = (e) => {
     if (e.target.value.trim() === "") {
@@ -33,7 +33,12 @@ const Userinput = ({ loading, onSubmit }) => {
 
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+    <div style={{ 
+      display: 'flex', 
+      alignItems: 'center', 
+      gap: isMobile ? '8px' : '10px',
+      flexDirection: isMobile ? 'column' : 'row'
+    }}>
       <TextArea 
         value={userInput} 
         onChange={handleUserInput} 
@@ -41,19 +46,22 @@ const Userinput = ({ loading, onSubmit }) => {
         onKeyDown={handleEnter}
         style={{
           flex: 1,
-          fontSize: '16px',
-          borderRadius: '8px'
+          fontSize: isMobile ? '14px' : '16px',
+          borderRadius: '8px',
+          width: isMobile ? '100%' : 'auto'
         }}
-        rows={2}
+        rows={isMobile ? 2 : 2}
       />
       <Button 
         style={{ 
-          height: '60px',
-          padding: '0 20px',
-          fontSize: '16px',
+          height: isMobile ? '44px' : '60px',
+          padding: isMobile ? '0 16px' : '0 20px',
+          fontSize: isMobile ? '14px' : '16px',
           borderRadius: '8px',
           backgroundColor: '#4CAF50',
-          borderColor: '#4CAF50'
+          borderColor: '#4CAF50',
+          width: isMobile ? '100%' : 'auto',
+          minWidth: isMobile ? '100px' : 'auto'
         }} 
         type="primary"
         loading={loading} 

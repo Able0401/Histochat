@@ -1,10 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Userinput from './components/Userinput';
 import { CallGPTBaseline } from './api/gptBaseline';
 import { CallGPTAdvanced } from './api/gptAdvanced';
 
 function App() {
+  // Mobile detection state
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check for mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Language state
   const [language, setLanguage] = useState('en'); // 'en' for English, 'ko' for Korean
   
@@ -181,17 +196,26 @@ function App() {
       return null;
     }
     return (
-      <div key={index} style={{ textAlign: chat.user === user_name ? "right" : "left", marginBottom: "15px"}}>
-        <div style={{ fontWeight: "bold", marginBottom: "5px" }}>{chat.user}</div>
+      <div key={index} style={{ 
+        textAlign: chat.user === user_name ? "right" : "left", 
+        marginBottom: isMobile ? "12px" : "15px"
+      }}>
+        <div style={{ 
+          fontWeight: "bold", 
+          marginBottom: "5px",
+          fontSize: isMobile ? "12px" : "14px"
+        }}>{chat.user}</div>
         <div style={{ 
           background: chat.user === user_name ? "#8D8C8C" : "#E8E8E8", 
           color: chat.user === user_name ? "#FFFFFF" : "#000000",
-          padding: "10px", 
-          borderRadius: "10px", 
+          padding: isMobile ? "8px 12px" : "10px", 
+          borderRadius: isMobile ? "8px" : "10px", 
           display: "inline-block", 
           whiteSpace: "pre-line",
-          maxWidth: "80%",
-          wordWrap: "break-word"
+          maxWidth: isMobile ? "85%" : "80%",
+          wordWrap: "break-word",
+          fontSize: isMobile ? "14px" : "15px",
+          lineHeight: "1.4"
         }}>
           {chat.message}
         </div>
@@ -204,17 +228,26 @@ function App() {
       return null;
     }
     return (
-      <div key={index} style={{ textAlign: chat.user === user_name ? "right" : "left", marginBottom: "15px"}}>
-        <div style={{ fontWeight: "bold", marginBottom: "5px" }}>{chat.user}</div>
+      <div key={index} style={{ 
+        textAlign: chat.user === user_name ? "right" : "left", 
+        marginBottom: isMobile ? "12px" : "15px"
+      }}>
+        <div style={{ 
+          fontWeight: "bold", 
+          marginBottom: "5px",
+          fontSize: isMobile ? "12px" : "14px"
+        }}>{chat.user}</div>
         <div style={{ 
           background: chat.user === user_name ? "#8D8C8C" : "#E8E8E8", 
           color: chat.user === user_name ? "#FFFFFF" : "#000000",
-          padding: "10px", 
-          borderRadius: "10px", 
+          padding: isMobile ? "8px 12px" : "10px", 
+          borderRadius: isMobile ? "8px" : "10px", 
           display: "inline-block", 
           whiteSpace: "pre-line",
-          maxWidth: "80%",
-          wordWrap: "break-word"
+          maxWidth: isMobile ? "85%" : "80%",
+          wordWrap: "break-word",
+          fontSize: isMobile ? "14px" : "15px",
+          lineHeight: "1.4"
         }}>
           {chat.message}
         </div>
@@ -234,36 +267,42 @@ function App() {
       {user_name_flag ? (
         <div style={{ 
           display: "flex", 
-          flexDirection: "row", 
+          flexDirection: isMobile ? "column" : "row", 
           height: "100%",
-          gap: "20px",
-          padding: "20px",
+          gap: isMobile ? "15px" : "20px",
+          padding: isMobile ? "10px" : "20px",
           boxSizing: "border-box",
-          maxWidth: "1400px",
+          maxWidth: isMobile ? "100%" : "1400px",
           margin: "0 auto",
-          width: "100%"
+          width: "100%",
+          overflow: isMobile ? "auto" : "hidden"
         }}>
           {/* Left Chat Container - Baseline */}
           <div style={{ 
-            width: "calc(50% - 10px)",
+            width: isMobile ? "100%" : "calc(50% - 10px)",
+            height: isMobile ? "50vh" : "100%",
             display: "flex", 
             flexDirection: "column", 
             border: "1px solid #ccc",
-            borderRadius: "10px",
+            borderRadius: isMobile ? "8px" : "10px",
             overflow: "hidden",
-            height: "100%",
             minWidth: "0",
             backgroundColor: "white",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            minHeight: isMobile ? "300px" : "auto"
           }}>
             <div style={{ 
-              padding: "15px", 
+              padding: isMobile ? "12px" : "15px", 
               backgroundColor: "#e3f2fd", 
               borderBottom: "1px solid #ccc",
               textAlign: "center",
               flexShrink: 0
             }}>
-              <h3 style={{ margin: 0, color: "#1976d2" }}>{texts[language].baselineTitle} - {persona}</h3>
+              <h3 style={{ 
+                margin: 0, 
+                color: "#1976d2", 
+                fontSize: isMobile ? "16px" : "18px" 
+              }}>{texts[language].baselineTitle} - {persona}</h3>
             </div>
             
             <div style={{ 
@@ -277,36 +316,41 @@ function App() {
             </div>
             
             <div style={{ 
-              padding: "15px", 
+              padding: isMobile ? "12px" : "15px", 
               backgroundColor: "#f8f9fa", 
               borderTop: "1px solid #ccc",
               flexShrink: 0
             }}>
-              <Userinput loading={baselineLoading} onSubmit={handleBaselineSubmit} />
+              <Userinput loading={baselineLoading} onSubmit={handleBaselineSubmit} isMobile={isMobile} />
             </div>
           </div>
 
           {/* Right Chat Container - Experimental */}
           <div style={{ 
-            width: "calc(50% - 10px)",
+            width: isMobile ? "100%" : "calc(50% - 10px)",
+            height: isMobile ? "50vh" : "100%",
             display: "flex", 
             flexDirection: "column", 
             border: "1px solid #ccc",
-            borderRadius: "10px",
+            borderRadius: isMobile ? "8px" : "10px",
             overflow: "hidden",
-            height: "100%",
             minWidth: "0",
             backgroundColor: "white",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+            boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+            minHeight: isMobile ? "300px" : "auto"
           }}>
             <div style={{ 
-              padding: "15px", 
+              padding: isMobile ? "12px" : "15px", 
               backgroundColor: "#fff3e0", 
               borderBottom: "1px solid #ccc",
               textAlign: "center",
               flexShrink: 0
             }}>
-              <h3 style={{ margin: 0, color: "#f57c00" }}>{texts[language].experimentalTitle} - {persona}</h3>
+              <h3 style={{ 
+                margin: 0, 
+                color: "#f57c00", 
+                fontSize: isMobile ? "16px" : "18px" 
+              }}>{texts[language].experimentalTitle} - {persona}</h3>
             </div>
             
             <div style={{ 
@@ -320,12 +364,12 @@ function App() {
             </div>
             
             <div style={{ 
-              padding: "15px", 
+              padding: isMobile ? "12px" : "15px", 
               backgroundColor: "#f8f9fa", 
               borderTop: "1px solid #ccc",
               flexShrink: 0
             }}>
-              <Userinput loading={advancedLoading} onSubmit={handleAdvancedSubmit} />
+              <Userinput loading={advancedLoading} onSubmit={handleAdvancedSubmit} isMobile={isMobile} />
             </div>
           </div>
         </div>
@@ -336,19 +380,19 @@ function App() {
           height: "100vh",
           backgroundColor: "#f5f5f5",
           overflow: "auto",
-          padding: "20px"
+          padding: isMobile ? "10px" : "20px"
         }}>
           <div style={{
-            maxWidth: "1200px",
+            maxWidth: isMobile ? "100%" : "1200px",
             margin: "0 auto",
             width: "100%",
             backgroundColor: "white",
-            borderRadius: "20px",
+            borderRadius: isMobile ? "15px" : "20px",
             boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
-            padding: "40px",
+            padding: isMobile ? "20px" : "40px",
             display: "flex",
             flexDirection: "column",
-            gap: "30px",
+            gap: isMobile ? "20px" : "30px",
             position: "relative"
           }}>
             {/* Language Toggle Button */}
@@ -356,26 +400,27 @@ function App() {
               onClick={toggleLanguage}
               style={{
                 position: "absolute",
-                top: "20px",
-                right: "20px",
-                padding: "8px 16px",
+                top: isMobile ? "15px" : "20px",
+                right: isMobile ? "15px" : "20px",
+                padding: isMobile ? "6px 12px" : "8px 16px",
                 backgroundColor: "#1976d2",
                 color: "white",
                 border: "none",
-                borderRadius: "20px",
+                borderRadius: "15px",
                 cursor: "pointer",
-                fontSize: "14px",
+                fontSize: isMobile ? "12px" : "14px",
                 fontWeight: "500",
                 transition: "all 0.3s ease",
-                zIndex: 1000
+                zIndex: 1000,
+                minHeight: isMobile ? "32px" : "auto"
               }}
               onMouseEnter={(e) => {
                 e.target.style.backgroundColor = "#1565c0";
-                e.target.style.transform = "scale(1.05)";
+                if (!isMobile) e.target.style.transform = "scale(1.05)";
               }}
               onMouseLeave={(e) => {
                 e.target.style.backgroundColor = "#1976d2";
-                e.target.style.transform = "scale(1)";
+                if (!isMobile) e.target.style.transform = "scale(1)";
               }}
             >
               {language === 'en' ? '한국어' : 'English'}
@@ -386,11 +431,12 @@ function App() {
               textAlign: "center"
             }}>
               <h1 style={{
-                fontSize: "28px",
+                fontSize: isMobile ? "20px" : "28px",
                 fontWeight: "bold",
                 color: "#1976d2",
-                marginBottom: "20px",
-                lineHeight: "1.2"
+                marginBottom: isMobile ? "15px" : "20px",
+                lineHeight: "1.2",
+                textAlign: isMobile ? "left" : "center"
               }}>
                 {texts[language].title}
               </h1>
@@ -400,33 +446,33 @@ function App() {
                 marginBottom: "20px"
               }}>
                 <p style={{
-                  fontSize: "14px",
+                  fontSize: isMobile ? "13px" : "14px",
                   lineHeight: "1.6",
                   color: "#555",
                   textAlign: "left",
-                  maxWidth: "950px",
+                  maxWidth: isMobile ? "100%" : "950px",
                   margin: "0 auto",
-                  marginBottom: "16px"
+                  marginBottom: isMobile ? "12px" : "16px"
                 }}>
                   {renderTextWithBold(texts[language].abstract1)}
                 </p>
                 <p style={{
-                  fontSize: "14px",
+                  fontSize: isMobile ? "13px" : "14px",
                   lineHeight: "1.6",
                   color: "#555",
                   textAlign: "left",
-                  maxWidth: "950px",
+                  maxWidth: isMobile ? "100%" : "950px",
                   margin: "0 auto",
-                  marginBottom: "16px"
+                  marginBottom: isMobile ? "12px" : "16px"
                 }}>
                   {renderTextWithBold(texts[language].abstract2)}
                 </p>
                 <p style={{
-                  fontSize: "14px",
+                  fontSize: isMobile ? "13px" : "14px",
                   lineHeight: "1.6",
                   color: "#555",
                   textAlign: "left",
-                  maxWidth: "950px",
+                  maxWidth: isMobile ? "100%" : "950px",
                   margin: "0 auto"
                 }}>
                   {renderTextWithBold(texts[language].abstract3)}
@@ -436,32 +482,32 @@ function App() {
               {/* System Comparison Cards */}
               <div style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "25px",
-                maxWidth: "1000px",
-                margin: "0 auto 25px auto"
+                gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+                gap: isMobile ? "15px" : "25px",
+                maxWidth: isMobile ? "100%" : "1000px",
+                margin: isMobile ? "0 0 15px 0" : "0 auto 25px auto"
               }}>
                 <div style={{
                   backgroundColor: "#e3f2fd",
-                  padding: "30px 25px",
-                  borderRadius: "15px",
+                  padding: isMobile ? "20px 15px" : "30px 25px",
+                  borderRadius: isMobile ? "12px" : "15px",
                   border: "2px solid #bbdefb",
-                  minHeight: "140px",
+                  minHeight: isMobile ? "120px" : "140px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center"
                 }}>
                   <h3 style={{
                     color: "#1976d2",
-                    marginBottom: "15px",
-                    fontSize: "22px",
+                    marginBottom: isMobile ? "10px" : "15px",
+                    fontSize: isMobile ? "18px" : "22px",
                     fontWeight: "700",
                     textAlign: "center"
                   }}>
                     {texts[language].baselineTitle}
                   </h3>
                   <p style={{
-                    fontSize: "16px",
+                    fontSize: isMobile ? "14px" : "16px",
                     color: "#333",
                     lineHeight: "1.5",
                     margin: 0,
@@ -474,25 +520,25 @@ function App() {
 
                 <div style={{
                   backgroundColor: "#fff3e0",
-                  padding: "30px 25px",
-                  borderRadius: "15px",
+                  padding: isMobile ? "20px 15px" : "30px 25px",
+                  borderRadius: isMobile ? "12px" : "15px",
                   border: "2px solid #ffcc02",
-                  minHeight: "140px",
+                  minHeight: isMobile ? "120px" : "140px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center"
                 }}>
                   <h3 style={{
                     color: "#f57c00",
-                    marginBottom: "15px",
-                    fontSize: "22px",
+                    marginBottom: isMobile ? "10px" : "15px",
+                    fontSize: isMobile ? "18px" : "22px",
                     fontWeight: "700",
                     textAlign: "center"
                   }}>
                     {texts[language].experimentalTitle}
                   </h3>
                   <p style={{
-                    fontSize: "16px",
+                    fontSize: isMobile ? "14px" : "16px",
                     color: "#333",
                     lineHeight: "1.5",
                     margin: 0,
@@ -511,15 +557,15 @@ function App() {
               justifyContent: "center"
             }}>
               <div style={{ 
-                maxWidth: "400px",
+                maxWidth: isMobile ? "100%" : "400px",
                 width: "100%",
                 textAlign: "center"
               }}>
-                <div style={{ marginBottom: "15px" }}>
+                <div style={{ marginBottom: isMobile ? "12px" : "15px" }}>
                   <h3 style={{ 
                     marginBottom: "8px", 
                     color: "#333", 
-                    fontSize: "16px",
+                    fontSize: isMobile ? "15px" : "16px",
                     fontWeight: "600",
                     textAlign: "left"
                   }}>
@@ -528,7 +574,7 @@ function App() {
                   <p style={{ 
                     marginBottom: "8px", 
                     color: "#888", 
-                    fontSize: "12px",
+                    fontSize: isMobile ? "11px" : "12px",
                     textAlign: "left"
                   }}>
                     {texts[language].exampleText}
@@ -539,14 +585,15 @@ function App() {
                     onChange={handlePersonaInput}
                     placeholder="Enter historical figure name..."
                     style={{
-                      padding: "12px",
-                      fontSize: "15px",
+                      padding: isMobile ? "10px" : "12px",
+                      fontSize: isMobile ? "14px" : "15px",
                       border: "2px solid #e0e0e0",
                       borderRadius: "8px",
                       width: "100%",
                       outline: "none",
                       transition: "all 0.3s ease",
-                      boxSizing: "border-box"
+                      boxSizing: "border-box",
+                      minHeight: isMobile ? "40px" : "auto"
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = "#4CAF50";
@@ -559,11 +606,11 @@ function App() {
                   />
                 </div>
                 
-                <div style={{ marginBottom: "20px" }}>
+                <div style={{ marginBottom: isMobile ? "15px" : "20px" }}>
                   <h3 style={{ 
                     marginBottom: "8px", 
                     color: "#333", 
-                    fontSize: "16px",
+                    fontSize: isMobile ? "15px" : "16px",
                     fontWeight: "600",
                     textAlign: "left"
                   }}>
@@ -575,14 +622,15 @@ function App() {
                     onChange={handleUserNameInput}
                     placeholder="Your name..."
                     style={{
-                      padding: "12px",
-                      fontSize: "15px",
+                      padding: isMobile ? "10px" : "12px",
+                      fontSize: isMobile ? "14px" : "15px",
                       border: "2px solid #e0e0e0",
                       borderRadius: "8px",
                       width: "100%",
                       outline: "none",
                       transition: "all 0.3s ease",
-                      boxSizing: "border-box"
+                      boxSizing: "border-box",
+                      minHeight: isMobile ? "40px" : "auto"
                     }}
                     onFocus={(e) => {
                       e.target.style.borderColor = "#4CAF50";
@@ -598,27 +646,33 @@ function App() {
                 <button 
                   onClick={handleUserName}
                   style={{
-                    padding: "15px 35px",
-                    fontSize: "16px",
+                    padding: isMobile ? "12px 25px" : "15px 35px",
+                    fontSize: isMobile ? "15px" : "16px",
                     backgroundColor: "#4CAF50",
                     color: "white",
                     border: "none",
                     borderRadius: "10px",
                     cursor: "pointer",
                     transition: "all 0.3s ease",
-                    boxShadow: "0 4px 12px rgba(76, 175, 80, 0.3)",
+                    boxShadow: isMobile ? "0 2px 8px rgba(76, 175, 80, 0.3)" : "0 4px 12px rgba(76, 175, 80, 0.3)",
                     fontWeight: "600",
-                    letterSpacing: "0.5px"
+                    letterSpacing: "0.5px",
+                    minHeight: isMobile ? "44px" : "auto",
+                    minWidth: isMobile ? "120px" : "auto"
                   }}
                   onMouseOver={(e) => {
                     e.target.style.backgroundColor = "#45a049";
-                    e.target.style.transform = "translateY(-2px)";
-                    e.target.style.boxShadow = "0 6px 16px rgba(76, 175, 80, 0.4)";
+                    if (!isMobile) {
+                      e.target.style.transform = "translateY(-2px)";
+                      e.target.style.boxShadow = "0 6px 16px rgba(76, 175, 80, 0.4)";
+                    }
                   }}
                   onMouseOut={(e) => {
                     e.target.style.backgroundColor = "#4CAF50";
-                    e.target.style.transform = "translateY(0)";
-                    e.target.style.boxShadow = "0 4px 12px rgba(76, 175, 80, 0.3)";
+                    if (!isMobile) {
+                      e.target.style.transform = "translateY(0)";
+                      e.target.style.boxShadow = "0 4px 12px rgba(76, 175, 80, 0.3)";
+                    }
                   }}
                 >
                   {texts[language].startChat}
