@@ -1,5 +1,4 @@
-import { db } from "./firebase.js";
-import { doc, addDoc, collection } from "firebase/firestore";
+import { supabase } from "./supabase.js";
 
 // Function to remove markdown formatting
 const removeMarkdown = (text) => {
@@ -108,14 +107,19 @@ export const CallGPTAdvanced = async ({
     const message = responseData.choices[0].message.content;
     const cleanMessage = removeMarkdown(message);
     
-    // Save to Firebase
+    // Save to Supabase
     if (pastchatlog.length > 0) {
-      await addDoc(collection(db, user_name + "Advanced"), {
-        chat_number: (pastchatlog.length) / 2,
-        timestamp: new Date(),
-        input: input,
-        output: cleanMessage,
-      });
+      await supabase
+        .from('conversations')
+        .insert({
+          user_name: user_name,
+          historical_figure: persona,
+          conversation_type: 'experimental',
+          chat_number: (pastchatlog.length) / 2,
+          user_message: input,
+          ai_response: cleanMessage,
+          timestamp: new Date().toISOString(),
+        });
     }
 
     return cleanMessage;
