@@ -22,11 +22,10 @@
 - [Research Methodology](#-research-methodology)
 - [Research Findings](#-research-findings)
 - [Installation](#-installation)
-- [Usage](#-usage)
-- [Technical Stack](#-technical-stack)
 - [Future Work](#-future-work)
 - [Citation](#-citation)
 - [License](#-license)
+- [Contact](#-contact)
 
 ---
 
@@ -402,92 +401,6 @@ firebase deploy
 
 ---
 
-## 📖 Usage
-
-### For Students
-
-1. **Enter name** for personalized interaction
-2. **Choose historical figure** (e.g., Napoleon, Alexander)
-3. **Click "Start Conversation"** - AI greets you in character
-4. **Compare both versions**:
-   - Left (Baseline): You lead, AI follows
-   - Right (Experimental): AI guides with questions
-5. **Complete worksheet** while conversing
-6. **Reflect** on your learning experience
-
-### For Educators
-
-**Before Class**:
-- Set learning objectives in system
-- Select curriculum-appropriate figures
-- Prepare guiding questions
-
-**During Class**:
-- Monitor conversations in real-time
-- Intervene if AI provides misinformation
-- Facilitate cross-condition reflection
-- Guide systemic historical reasoning
-
-**After Class**:
-- Review conversation logs in Supabase
-- Identify common questions/misconceptions
-- Analyze engagement patterns
-- Adapt future lessons
-
-### For Researchers
-
-**Data Access**:
-- Structured conversation logs
-- Pre/post test results
-- Likert scale evaluations
-- Open-ended survey responses
-- Worksheet artifacts
-
-**Analysis Opportunities**:
-- Compare Baseline vs Experimental
-- Examine historical empathy development
-- Investigate AI perception shifts
-- Explore personalization effects
-
----
-
-## 🛠️ Technical Stack
-
-### Frontend
-- **React 18.3.1** - Component-based UI
-- **Vite 6.2.6** - Fast build and HMR
-- **Ant Design 5.x** - UI components
-
-### Backend & APIs
-- **OpenAI GPT-4o** - Historical persona simulation
-- **Supabase** - PostgreSQL for conversation storage
-
-### Prompt Engineering
-
-**Basic Prompts** (both versions):
-1. Historical figure setup (era-appropriate speech)
-2. Learning objective definition
-3. Conversation continuity from prior dialogue
-
-**Experimental Prompts** (additional):
-4. Present 3 challenges (SNS-style titles)
-5. Understand student's situation
-6. Relate challenge to student's life
-7. Lead toward learning objective
-8. Indirectly monitor progress
-
-### Key Libraries
-```json
-{
-  "react": "^18.3.1",
-  "react-dom": "^18.3.1",
-  "antd": "^5.22.5",
-  "@supabase/supabase-js": "^2.48.1"
-}
-```
-
----
-
 ## 🔮 Future Work
 
 ### Design Implications
@@ -569,29 +482,6 @@ This work is licensed under a **Creative Commons Attribution 4.0 International L
 ACM 2573-0142/2025/11-ARTCSCW353
 
 See LICENSE file for details.
-
----
-
-## 🙏 Acknowledgments
-
-**Research Team**:
-- Yeon Soo Kim, Department of Industrial Design, KAIST
-- Hyun Seung Moon, Department of Industrial Design, KAIST
-- Sangsu Lee, Department of Industrial Design, KAIST
-- Tak Yeon Lee, Department of Industrial Design, KAIST
-
-**Study Participants**:
-- 25 middle school students (ages 12-15)
-- 3 history teachers
-- Schools and institutions in South Korea
-
-**Technology Partners**:
-- **OpenAI** for GPT-4o API access
-- **Supabase** for database infrastructure
-
-**Community**:
-- CSCW 2025 reviewers and attendees
-- Open source contributors
 
 ---
 
