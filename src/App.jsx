@@ -27,9 +27,9 @@ function App() {
   const texts = {
     en: {
       title: "\"HistoChat\": Leveraging AI-Driven Historical Personas for Personalized and Engaging Middle School History Education",
-      abstract1: "This paper explores the **potential of AI-powered historical personas, specifically through a system called HistoChat, to transform middle school history education** by fostering personalized engagement and cultivating historical empathy. Based on a formative study that identified challenges in traditional history learning and user expectations for AI, two versions of HistoChat were developed: a **Baseline version** that passively responded to student queries, and an **Experimental version** designed for active, personalized, and proactive engagement.",
-      abstract2: "A subsequent user study with middle school students demonstrated that these AI interactions fostered deeper inquiry, curiosity, and emotional engagement. Students reported that AI historical figures facilitated **self-directed learning**, provided **comprehensive and personalized explanations** beyond textbooks, supported **perspective-taking** through immersive dialogue, and evoked **internal motivation** by connecting historical content to personal interests.",
-      abstract3: "While acknowledging benefits like enhanced engagement and personalized learning, the study also surfaced limitations such as the risk of over-reliance on AI, potential for misinformation, and challenges in promoting systemic historical reasoning beyond biographical narratives. The research expands the role of AI from a mere task assistant to an **epistemic and relational partner**, highlighting the need for careful design that balances student autonomy with pedagogical structure for effective and ethically responsible integration in real-world classrooms.",
+      abstract1: "The paper, titled \"HistoChat\": Leveraging AI-Driven Historical Personas for Personalized and Engaging Middle School History Education, examines how **Large Language Model (LLM)-based historical personas can address limitations in traditional history education**, which often struggles to cultivate historical empathy due to rigid curricula and limited personalized engagement. To explore this potential, the authors developed and tested two AI persona systems, **Baseline and Experimental HistoChat**, which employed differing prompting strategies—Baseline providing reactive responses and Experimental incorporating proactive, tailored responses designed to foster historical empathy.",
+      abstract2: "A subsequent user study with middle school students demonstrated that engaging in real-time, conversational interactions with these simulated historical figures successfully fostered **deeper inquiry, curiosity, and emotional engagement**. This research contributes to the discourse on AI in education by expanding the role of AI from a mere task assistant to an **epistemic partner**, providing valuable insights into designing dialogic systems that support personalized, empathetic, and co-constructed learning experiences in educational settings.",
+      abstract3: "",
       baselineTitle: "Baseline HistoChat",
       baselineDesc: "Passive response model with traditional Q&A format. Provides direct historical information when asked.",
       experimentalTitle: "Experimental HistoChat",
@@ -431,37 +431,6 @@ function App() {
             gap: isMobile ? "20px" : "30px",
             position: "relative"
           }}>
-            {/* Language Toggle Button */}
-            <button 
-              onClick={toggleLanguage}
-              style={{
-                position: "absolute",
-                top: isMobile ? "15px" : "20px",
-                right: isMobile ? "15px" : "20px",
-                padding: isMobile ? "6px 12px" : "8px 16px",
-                backgroundColor: "#1976d2",
-                color: "white",
-                border: "none",
-                borderRadius: "15px",
-                cursor: "pointer",
-                fontSize: isMobile ? "12px" : "14px",
-                fontWeight: "500",
-                transition: "all 0.3s ease",
-                zIndex: 1000,
-                minHeight: isMobile ? "32px" : "auto"
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = "#1565c0";
-                if (!isMobile) e.target.style.transform = "scale(1.05)";
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = "#1976d2";
-                if (!isMobile) e.target.style.transform = "scale(1)";
-              }}
-            >
-              {language === 'en' ? '한국어' : 'English'}
-            </button>
-            
             {/* Paper Introduction Section */}
             <div style={{
               textAlign: "center"
@@ -470,12 +439,63 @@ function App() {
                 fontSize: isMobile ? "20px" : "28px",
                 fontWeight: "bold",
                 color: "#1976d2",
-                marginBottom: isMobile ? "15px" : "20px",
+                marginBottom: isMobile ? "10px" : "15px",
                 lineHeight: "1.2",
                 textAlign: isMobile ? "left" : "center"
               }}>
                 {texts[language].title}
               </h1>
+              
+              {/* Author Names */}
+              <div style={{
+                fontSize: isMobile ? "14px" : "16px",
+                color: "#555",
+                marginBottom: isMobile ? "10px" : "15px",
+                textAlign: isMobile ? "left" : "center",
+                fontWeight: "500"
+              }}>
+                <a href="https://orcid.org/0000-0002-8316-8954" target="_blank" rel="noopener noreferrer" style={{ color: "#1976d2", textDecoration: "none", marginRight: "5px" }}>Yeon Soo Kim</a>
+                <span>, </span>
+                <a href="https://hyunseungmoon.net/" target="_blank" rel="noopener noreferrer" style={{ color: "#1976d2", textDecoration: "none", marginRight: "5px" }}>Hyun Seung Moon</a>
+                <span>, </span>
+                <a href="https://orcid.org/0000-0002-3793-6801" target="_blank" rel="noopener noreferrer" style={{ color: "#1976d2", textDecoration: "none", marginRight: "5px" }}>Sangsu Lee</a>
+                <span>, </span>
+                <a href="https://orcid.org/0000-0002-9235-9947" target="_blank" rel="noopener noreferrer" style={{ color: "#1976d2", textDecoration: "none" }}>Tak Yeon Lee</a>
+              </div>
+              
+              {/* Publication Button */}
+              <div style={{
+                textAlign: isMobile ? "left" : "center",
+                marginBottom: isMobile ? "15px" : "20px"
+              }}>
+                <a 
+                  href="https://dl.acm.org/doi/10.1145/3757534" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-block",
+                    padding: isMobile ? "8px 16px" : "10px 20px",
+                    backgroundColor: "#4CAF50",
+                    color: "white",
+                    textDecoration: "none",
+                    borderRadius: "8px",
+                    fontSize: isMobile ? "13px" : "15px",
+                    fontWeight: "600",
+                    transition: "all 0.3s ease",
+                    boxShadow: "0 2px 8px rgba(76, 175, 80, 0.3)"
+                  }}
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = "#45a049";
+                    if (!isMobile) e.target.style.transform = "translateY(-2px)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = "#4CAF50";
+                    if (!isMobile) e.target.style.transform = "translateY(0)";
+                  }}
+                >
+                  Publication
+                </a>
+              </div>
               
               <div style={{
                 padding: "20px",
@@ -498,20 +518,9 @@ function App() {
                   color: "#555",
                   textAlign: "left",
                   maxWidth: isMobile ? "100%" : "950px",
-                  margin: "0 auto",
-                  marginBottom: isMobile ? "12px" : "16px"
-                }}>
-                  {renderTextWithBold(texts[language].abstract2)}
-                </p>
-                <p style={{
-                  fontSize: isMobile ? "13px" : "14px",
-                  lineHeight: "1.6",
-                  color: "#555",
-                  textAlign: "left",
-                  maxWidth: isMobile ? "100%" : "950px",
                   margin: "0 auto"
                 }}>
-                  {renderTextWithBold(texts[language].abstract3)}
+                  {renderTextWithBold(texts[language].abstract2)}
                 </p>
               </div>
 
