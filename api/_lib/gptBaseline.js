@@ -1,4 +1,3 @@
-import { supabase } from "./supabase.js";
 
 // Function to remove markdown formatting
 const removeMarkdown = (text) => {
@@ -21,7 +20,7 @@ export const CallGPTBaseline = async ({
   language = 'en',
 }) => {
   const persona = input_persona;
-  const learning_objective = language === 'en' 
+  const learning_objective = language === 'en'
     ? `Let's understand the adversities ${persona} faced and why he made certain choices in those difficult times, what he was thinking, what the results were, and how he overcame them.`
     : `${persona}이 직면한 어려움과 그 어려운 시기에 왜 특정 선택을 했는지, 무엇을 생각했는지, 결과는 무엇이었는지, 그리고 어떻게 극복했는지 이해해봅시다.`;
 
@@ -30,7 +29,7 @@ export const CallGPTBaseline = async ({
   const chatlog =
     "Previous conversations: \n" + pastchatlog.map((obj) => JSON.stringify(obj)).join("\n");
 
-  const init_prompt1 = language === 'en' 
+  const init_prompt1 = language === 'en'
     ? `You are now ${persona}. Answer the questions I ask thinking as if you are ${persona}. Use the speaking style that ${persona} would have used during the era he lived in. Keep this speaking style consistently and answer only in English. If the other person speaks informally, ask them to be polite and speak in the manner ${persona} would speak to a common person from his historical position.`
     : `너는 지금부터 ${persona}이야. 내가 묻는 질문들에 ${persona}이라고 생각하고 대답해줘. 말투는 ${persona}이 살았던 시대의 ${persona}이 할법한 말투로 해줘. 계속 그 말투를 유지해줘 그리고 반드시 한국말로만 대답해줘. 상대방이 반말을 한다면 예의를 갖추라고 하며 ${persona}의 시대적 위치에서 일반인에게 대하는 말투로 해줘.`;
 
@@ -58,7 +57,7 @@ export const CallGPTBaseline = async ({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${import.meta.env.VITE_GPT_API_KEY}`,
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
         model: "gpt-4o",
@@ -85,7 +84,7 @@ export const CallGPTBaseline = async ({
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${import.meta.env.VITE_GPT_API_KEY}`,
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
         model: "gpt-4o",
@@ -100,19 +99,19 @@ export const CallGPTBaseline = async ({
 
     // Save to Supabase
     if (pastchatlog.length > 0) {
-      await supabase
-        .from('conversations')
-        .insert({
-          user_name: user_name,
-          historical_figure: persona,
-          conversation_type: 'baseline',
-          chat_number: (pastchatlog.length) / 2,
-          user_message: input,
-          ai_response: cleanMessage,
-          timestamp: new Date().toISOString(),
-        });
+      // await supabase
+      //   .from('conversations')
+      //   .insert({
+      //     user_name: user_name,
+      //     historical_figure: persona,
+      //     conversation_type: 'baseline',
+      //     chat_number: (pastchatlog.length) / 2,
+      //     user_message: input,
+      //     ai_response: cleanMessage,
+      //     timestamp: new Date().toISOString(),
+      //   });
     }
 
     return cleanMessage;
   }
-}; 
+};
