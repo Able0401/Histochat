@@ -73,6 +73,10 @@ firebase.json             redirect from the old Firebase Hosting URL
 }
 ```
 
+## License
+
+Code is released under the MIT License (see `LICENSE`). The paper is available from the ACM Digital Library under its own terms.
+
 ## Contact
 
 - Yeon Soo Kim: ykim18@kaist.ac.kr
