@@ -1,5 +1,0 @@
-{
-  "redirects": [
-    { "source": "/:path*", "destination": "https://histochat.hyunseungmoon.net/:path*", "permanent": true }
-  ]
-}
